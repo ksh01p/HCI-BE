@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    //domain
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //db
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.0' //db
+
+
+    //mybatis 사용
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3' //3.0.2 => 3.0.3으로 상승!!
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+
+}
+
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
